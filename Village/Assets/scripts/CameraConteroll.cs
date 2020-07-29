@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CameraConteroll : MonoBehaviour
 {
-    // Start is called before the first frame update
-    // [serilz]
+    [SerializeField] float rotationSpeed = 10f;
+    [SerializeField] float MovmentSpeed = 1f;
     Vector3 mouseOrigin = new Vector3();
     Camera camera;
     void Start()
@@ -19,42 +19,59 @@ public class CameraConteroll : MonoBehaviour
         onMouseDown();
         onScrolling();
     }
-    
-    void onMouseDown(){
-        if(Input.GetMouseButtonDown(0)){
+
+    void onMouseDown()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            Debug.Log('1');
+            mouseOrigin = Input.mousePosition;
+
+        }
+        if (Input.GetMouseButton(1))
+        {
+            cameraRotation();
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log('0');
             mouseOrigin = Input.mousePosition;
         }
-        if(Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
         {
             // Debug.Log("down");
-            CameraController();
-        }
-        
-
-    }
-    void onScrolling(){
-        if(Input.GetAxis("Mouse ScrollWheel")!=0){
-        Debug.Log(Input.GetAxis("Mouse ScrollWheel"));
-        cameraZoom(Input.GetAxis("Mouse ScrollWheel"));
+            mouseMovment();
         }
     }
-    void CameraController()
+    void cameraRotation()
     {
-        // Debug.Log(Input.mousePosition);
-        
-        mouseMovment();
-
-    }
-    void cameraZoom(float zoom){
-        camera.transform.position =new Vector3(camera.transform.position.x,camera.transform.position.y-zoom,camera.transform.position.z+zoom);
-    }
-    void mouseMovment(){
         Vector3 mouseDif = mouseOrigin - Input.mousePosition;
-        Debug.Log(mouseDif/108);
-        camera.transform.position = camera.transform.position + mouseDif/108;
+        transform.Rotate((mouseDif.y/108)*rotationSpeed,(mouseDif.x/108)*rotationSpeed,0);
+        mouseOrigin = Input.mousePosition;
+        // // Debug.Log(mouseDif);
+        // camera.transform.rotation.Set(0,50,0,0);
+    }
+    void onScrolling()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        {
+            // Debug.Log(Input.GetAxis("Mouse ScrollWheel"));
+            cameraZoom(Input.GetAxis("Mouse ScrollWheel"));
+        }
+    }
+    void cameraZoom(float zoom)
+    {
+        camera.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y - zoom, camera.transform.position.z + zoom);
+    }
+    void mouseMovment()
+    {
+
+        Vector3 mouseDif = mouseOrigin - Input.mousePosition;
+        // Debug.Log(mouseDif / 108);
+        camera.transform.position =new Vector3( camera.transform.position.x + mouseDif.x / 108,camera.transform.position.y,camera.transform.position.z+mouseDif.y/108);
         mouseOrigin = Input.mousePosition;
     }
-    
+
 }
 
 
