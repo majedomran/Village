@@ -37,6 +37,8 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\scripts\CameraConteroll.cs" />
+     <Compile Include="Assets\Demo\Low poly package\Scripts\ScreenshotHandler.cs" />
+     <Compile Include="Assets\Demo\Low poly package\Scripts\GameHandler.cs" />
     <Reference Include="UnityEngine">
         <HintPath>G:/New folder/2020.1.0f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
